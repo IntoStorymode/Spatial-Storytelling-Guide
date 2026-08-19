@@ -4,8 +4,8 @@ A practical guide to spatial storytelling: how to scan an object or a place with
 
 ## The guides
 
-- **[01 — Scanning Objects](01-scanning-objects.md)** — capturing a single object with a phone.
-- **[02 — Scanning Environments](02-scanning-environments.md)** — capturing a room or a site: coverage, lighting, walking pattern, and the failure modes worth knowing before you start.
+- **[01 — Scanning Objects](01-scanning-objects.md)** — capturing anything you stand outside of and look inward at, from a desktop object to a whole building.
+- **[02 — Scanning Environments](02-scanning-environments.md)** — capturing a room or interior, where you are inside the thing you are recording: path design, coverage, and the failure modes worth knowing before you start.
 - **[03 — Processing to 3DGS](03-processing-3dgs.md)** — turning a raw capture into a trained, cleaned, compressed splat, with free and paid tools.
 - **[04 — Story Collection and Interviews](04-story-collection-and-interviews.md)** — gathering the account that gives the scan its meaning.
 
