@@ -1,34 +1,39 @@
 # Diagrams
 
-The scanning guides mark nine places where a diagram carries the idea better than prose. Each is flagged in the source with an HTML comment:
+Nine diagrams, one per idea that prose carries badly. All nine are in place and referenced from the guides.
 
-```
-<!-- DIAGRAM: <what it needs to show> -->
-```
+They were generated from the prompts in [PROMPTS.md](PROMPTS.md) and are **deliberately label-free** — text rendering is the least reliable part of an image model, so the labelling is carried by the markdown caption beneath each image instead. That works, but it is a workaround, not the end state.
 
-Until they are drawn, those comments are invisible to a reader and the guides read as continuous prose. Nothing is broken by their absence; the text stands on its own.
+## Status
 
-## Brief
+| # | File | State |
+|---|---|---|
+| 1 | `diagram-01-rotation-vs-translation.png` | Good |
+| 2 | `diagram-02-orbit-heights.png` | Rings read flat — the ellipses pass through the statue with no occlusion |
+| 3 | `diagram-03-wide-medium-detail.png` | Good |
+| 4 | `diagram-04-turning-a-corner.png` | Middle cone does not visibly land on both walls, which is the point of the diagram |
+| 5 | `diagram-05-connected-vs-isolated.png` | Good |
+| 6 | `diagram-06-walking-vs-camera.png` | Good |
+| 7 | `diagram-07-room-path.png` | Good |
+| 8 | `diagram-08-vertical-bands.png` | All three wedges radiate from one camera position — see below |
+| 9 | `diagram-09-ceiling-lanes.png` | Lane structure correct, but arrowhead directions contradict each other |
 
-All nine explain the same underlying thing — that reconstruction depends on seeing surfaces repeatedly from different positions — so they should read as one set. Plain line work, no perspective rendering, legible at a page width and in a printed handout.
+## Known issues, for a later pass
 
-### 01 — Scanning Objects
+**The camera symbol is not consistent across the set.** Diagrams 4, 7 and 9 came from a second round that pinned the glyph explicitly and share one symbol. The other six each use a different one — plain rectangles, a lens-and-body icon, a video camera, a wall-mounted unit. The camera is the only element appearing in all nine, so this is the most visible inconsistency.
 
-1. **Rotation vs translation.** A fixed camera sweeping its view across a subject, beside a camera at three positions along a path all pointing at that subject. The contrast is the point: the first produces no feature displacement, the second does.
-2. **Three orbit heights.** Low, eye and high rings around a statue, camera angled up, level and down respectively, showing what vertical coverage each contributes.
-3. **Wide, medium, detail.** Three nested framings on one subject, with shared features marked between each pair to show the chain that connects a close-up back to the whole.
-4. **Turning a corner.** A camera path curving around a building corner, with three sample frames showing both façades in view through the turn.
-5. **Connected vs isolated views.** A dense grid of camera positions with overlapping sightlines, against four scattered positions with none. The failure case is as important as the good one.
+**Diagram 8 contradicts the text beside it.** It shows three coverage wedges fanning from a single fixed camera position. A diagram of one vantage point fanning three ways illustrates tilting from a fixed spot, which is precisely what diagram 9 and the surrounding text warn against. The wedges should originate from three positions along a route. This is an error in the prompt, not in the generation.
 
-### 02 — Scanning Environments
+**Diagram 9's arrowheads disagree.** The path is one continuous route, so travel must flow consistently — down lane one, up lane two, down lane three, up lane four. Two lanes currently carry arrowheads pointing both ways. Separately, the upward-tilt chevrons and the travel arrows render as the same mark, so the two meanings are indistinguishable.
 
-6. **Walking direction vs camera direction.** A straight path left to right, camera arrows angled consistently back at about 45°, showing how a fixed feature travels across successive frames.
-7. **The room path.** A room plan layering perimeter loop, both diagonals, a central crossing, and a small arc around one piece of furniture.
-8. **Three vertical bands.** A room cross-section with upper, middle and lower view bands, drawing attention to the overlap margins between them rather than the bands themselves.
-9. **Ceiling lanes.** A room plan with serpentine lane paths and consistent upward tilt, set against a single stationary point radiating tilt directions.
+**Diagram 2's rings have no depth.** The orbit ellipses cross the statue without occlusion, so they read as flat bands rather than rings encircling it.
 
-## Format
+## The end state
 
-SVG, committed here, referenced from the guides by relative path. Text in the diagram should be real text rather than outlines, so it stays searchable and legible when scaled.
+Redrawing the set as SVG resolves all of the above at once, and none of it reliably survives another generation round. It also buys real text for the labels, `currentColor` strokes so the diagrams stay legible in both GitHub themes, and scaling that holds up in a printed handout.
 
-Both light and dark backgrounds are worth accounting for: strokes and labels set in `currentColor`, or a pair of files, so the diagrams remain readable in whichever theme the reader is using on GitHub.
+The brief for each diagram — what it must show — is preserved in [PROMPTS.md](PROMPTS.md), which stays useful as the specification whether the next version is generated or drawn.
+
+## Format notes
+
+Current files are PNG, around 1600px on the long edge, quantised to a 64-colour palette. That covers a GitHub column at 2× and A4 at 300dpi. Aspect ratios are 16:9 for 1, 3, 5, 6, 8 and 9; 4:3 for 2 and 7; 1:1 for 4.

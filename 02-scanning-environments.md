@@ -24,7 +24,9 @@ You can walk one way while looking another. Walking forwards along a wall while 
 
 Treat *where you are*, *where you are looking*, and *what you have already seen from elsewhere* as three separate things to track.
 
-<!-- DIAGRAM: walking direction as a straight arrow left to right, camera direction as a set of arrows angled consistently back at ~45°, showing the resulting displacement of a fixed feature across successive frames. -->
+![Walking direction against camera direction](diagrams/diagram-06-walking-vs-camera.png)
+
+*Walking left to right while aiming back across the room. The angle to the fixed point changes with every step, which is exactly the displacement the solver needs.*
 
 ## Do not just walk the perimeter
 
@@ -44,7 +46,9 @@ Think **perimeter plus diagonals plus crossings plus local loops**, not one lap.
 
 Cross-room passes earn their place because they produce camera positions a perimeter lap simply cannot, and they give every wall and object a different background to be measured against.
 
-<!-- DIAGRAM: room plan showing the layered path — perimeter loop, both diagonals, a central crossing, and a small arc around one piece of furniture. -->
+![Layered room paths](diagrams/diagram-07-room-path.png)
+
+*Perimeter (solid), diagonals (dashed), a crossing (dash-dot), and a local arc around the table (dotted).*
 
 ## Start with a context pass
 
@@ -68,7 +72,9 @@ Complete coverage of a room is best thought of as three overlapping horizontal b
 
 The important word is *overlapping*. Three separate datasets — a ceiling, a room and a floor with nothing in common — is a much worse outcome than three bands that share generous margins with their neighbours. Ceiling should connect to upper wall, upper wall to room, room to lower wall, lower wall to floor.
 
-<!-- DIAGRAM: room cross-section with three horizontal view bands (upper, middle, lower), showing the overlap margins between adjacent bands as the connecting tissue. -->
+![Three vertical bands of coverage](diagrams/diagram-08-vertical-bands.png)
+
+*Upper, middle and lower coverage. The hatched zones where they overlap are what ties ceiling to wall to floor.*
 
 ## Ceilings and floors
 
@@ -84,7 +90,9 @@ Do not point straight up. A frame of nothing but ceiling has no relationship to 
 
 For a big room, walk lanes rather than wandering. Up one side, back down the next, camera tilted up throughout, the way you would mow a lawn — except the surface is above you.
 
-<!-- DIAGRAM: room plan with serpentine lane paths (up, across, back), camera tilt indicated as consistently upward, contrasted with a single stationary point radiating tilt directions. -->
+![Ceiling lanes against a fixed vantage point](diagrams/diagram-09-ceiling-lanes.png)
+
+*Left: lanes walked with the camera tilted upward. Right: tilting from one spot, which produces coverage but almost no parallax.*
 
 Floors work identically. Tilt down and walk; hold an oblique angle rather than pointing straight down, so that skirting, furniture legs, thresholds, rugs and doors stay in frame and keep the floor tied to the room. The anchors are floorboards, tiles, joints, cables, rugs and material transitions.
 

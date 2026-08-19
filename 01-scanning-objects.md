@@ -14,7 +14,9 @@ This is why standing in one spot and panning across a subject produces almost no
 
 Rotation is not movement. Take a few steps.
 
-<!-- DIAGRAM: rotation vs translation. Left: camera fixed at one point, view cone sweeping across subject, no parallax. Right: camera at three separate positions along a path, all pointing at the same subject, showing feature displacement. -->
+![Rotation versus translation](diagrams/diagram-01-rotation-vs-translation.png)
+
+*Left: one position, the view swept across the subject — the sight lines barely change. Right: three positions along a path — the same point on the statue is seen from measurably different angles.*
 
 ## Before you start
 
@@ -65,7 +67,9 @@ A slow spiral from low to high as you circle works as well as three separate loo
 
 Do not worry about keeping the camera level. Tilting up and down is the point. Just make sure you are tilting *while moving* — tilt on its own, from a fixed spot, buys you nothing.
 
-<!-- DIAGRAM: three orbit rings at low, eye and high level around a statue, camera angled up, level and down respectively. Show the vertical coverage each ring contributes. -->
+![Three orbit heights](diagrams/diagram-02-orbit-heights.png)
+
+*Three orbits at low, eye and high level, the camera angled up, level and down in turn.*
 
 ## Change your distance
 
@@ -81,7 +85,9 @@ This is the one place where two common pieces of advice appear to disagree. Some
 
 Drifting in and out mid-orbit makes a single pass inconsistent. Doing a second orbit deliberately closer gives you detail the first could not reach.
 
-<!-- DIAGRAM: wide, medium and detail views as three nested frames on a statue, with shared features marked between each pair to show the connecting chain. -->
+![Wide, medium and detail framings](diagrams/diagram-03-wide-medium-detail.png)
+
+*Whole, region, detail. The circled feature recurs in each adjacent pair, and that is what connects the close-up back to the whole figure.*
 
 ## Corners, and subjects you cannot circle
 
@@ -93,7 +99,9 @@ Corners deserve particular care, because they carry strong three-dimensional inf
 
 Handled that way, a corner acts as a bridge. Handled badly, it is where a reconstruction splits into two unrelated halves.
 
-<!-- DIAGRAM: camera path curving around a building corner, with frames at three points showing both façades visible simultaneously through the turn. -->
+![Camera path around a building corner](diagrams/diagram-04-turning-a-corner.png)
+
+*Moving around a corner rather than stopping and restarting. The middle position sees both faces at once, which is what bridges them.*
 
 ## Keep the passes connected
 
@@ -103,7 +111,9 @@ Your wide orbit, your closer orbit and your detail shots should each contain gro
 
 The failure to avoid is recording the front of something in one session, the back in another, and nothing that ties them together. Several short passes are fine — better than one long take, usually, since you can redo a bad one — but they have to overlap.
 
-<!-- DIAGRAM: contrast a dense grid of camera positions with shared sightlines against four isolated positions with no overlap. Caption the difference as connected vs isolated observations. -->
+![Connected versus isolated camera positions](diagrams/diagram-05-connected-vs-isolated.png)
+
+*Left: every view shares features with its neighbours. Right: four perfectly good images with no relationship between them.*
 
 ## Conditions
 
