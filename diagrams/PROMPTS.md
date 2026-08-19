@@ -44,6 +44,14 @@ Prepend this to every prompt:
 
 > Flat 2D technical line diagram in the style of an instructional manual or engineering textbook. Pure vector look: clean uniform-weight black strokes on a plain white background, one single accent colour (warm orange) used only for the camera path and camera positions. No perspective rendering, no 3D shading, no gradients, no shadows, no textures, no photorealism. Simple geometric shapes only. Generous white space. Clean neutral sans-serif labels, small, set in black. Minimal, precise, uncluttered.
 
+## Camera glyph
+
+Paste this after the style block, on every prompt that contains a camera.
+
+The first round came back with a different camera symbol in almost every image — plain rectangles, a lens-and-body icon, a video camera, a wall-mounted CCTV unit, a photo camera. Individually fine, but the camera is the one symbol that appears in all nine, so the set did not cohere. Pin it explicitly:
+
+> Every camera in the image is drawn as the same simple symbol: a small horizontal rectangle outlined in the accent colour, with a short trapezoid lens stub projecting from one side to show which way it faces. No round lens, no viewfinder bump, no body detail, no wall bracket, no tripod. Every camera in the image uses this identical symbol at the same size.
+
 ---
 
 ## 01 — Scanning Objects
@@ -92,15 +100,17 @@ Prepend this to every prompt:
 
 ### 4. Turning a corner
 
-> Top-down plan view. A building drawn as a simple rectangle occupying the lower right, so that two of its outside walls meet at a right-angled corner pointing toward the upper left.
+> Top-down plan view, drawn entirely within the frame with a clear margin on all four sides. Nothing runs off the edge of the image.
 >
-> A smooth continuous curved path in the accent colour sweeps around the outside of that corner, well clear of the walls.
+> A building occupying the lower right, drawn as a closed rectangle with its interior filled with fine even diagonal hatching so that it reads as solid mass. Two of its outside walls meet at a right-angled corner pointing toward the upper left. The building must be a complete closed shape, not two open lines.
 >
-> Three camera icons sit on the path: one early, one at the midpoint directly off the corner, one late. Each has a translucent view cone. The first cone covers only the first wall. The middle cone is wide enough to cover both walls at once. The last cone covers only the second wall.
+> One smooth continuous curved path in the accent colour sweeps around the outside of that corner at a constant clearance from both walls. Both ends of the path stop inside the frame, with visible empty space beyond each end.
 >
-> Label the middle camera on a leader line: "Both faces in view".
+> Three cameras sit on the path: one near the start, one at the midpoint directly off the corner, one near the end. Each casts a pale translucent view cone. The first cone falls only on the first wall. The middle cone is wide enough to span the corner and cover both walls at once. The third cone falls only on the second wall. The three cones must not overlap one another.
 >
-> NO TEXT variant: identical, leader line drawn, label omitted.
+> A short leader line runs from the middle camera out into empty space and stops.
+>
+> NO TEXT anywhere in the image.
 >
 > Aspect ratio 1:1. Generate at the largest resolution available.
 
@@ -138,17 +148,20 @@ Prepend this to every prompt:
 
 ### 7. The room path
 
-> Top-down plan of a simple rectangular room, drawn as a clean outline with double-line walls. A door gap in the lower wall, a window marked in the upper wall, and one small rectangle in the middle right representing a table.
+> Top-down plan of a simple rectangular room, drawn as a clean outline with double-line walls. A door gap in the lower wall, a window marked in the upper wall, and one small rectangle representing a table in the lower right quadrant.
 >
-> Four overlaid paths, each in a different line style, all in the accent colour:
-> a continuous solid loop following just inside the perimeter of the room;
-> two dashed straight lines running corner to corner, crossing at the centre to form an X;
-> one dotted straight line crossing the room's short axis;
-> one small closed arc, like a single flower petal, curving around the table.
+> Four paths overlaid inside the room, all in the accent colour, each in a clearly different line style:
 >
-> A compact legend in the lower right corner outside the room outline, with a short sample of each line style: "Perimeter", "Diagonals", "Crossing", "Local arc".
+> 1. a SOLID continuous loop running just inside the perimeter;
+> 2. two LONG-DASHED straight lines corner to corner, crossing at the centre to form an X;
+> 3. one DASH-DOT straight line running from the top wall to the bottom wall, placed in the left half of the room so that it comes nowhere near the table;
+> 4. one FINE-DOTTED closed loop, shaped like a single flower petal, curving around the table.
 >
-> NO TEXT variant: identical, legend drawn as line samples in a box with the names omitted.
+> The four line styles must be distinguishable from each other at a glance. No path crosses a wall or extends beyond the room. Nothing passes through the table except the petal loop that encircles it.
+>
+> A legend box in the lower right corner, outside the room outline, holding four short horizontal samples of the four line styles in order, with empty space where their names would go.
+>
+> NO TEXT anywhere in the image.
 >
 > Aspect ratio 4:3. Generate at the largest resolution available.
 
@@ -168,15 +181,13 @@ Prepend this to every prompt:
 
 ### 9. Ceiling lanes
 
-> Two panels side by side, separated by a thin vertical rule, each a top-down plan of the same simple rectangular room.
+> Two panels side by side, separated by a thin vertical rule. Each panel holds an identical top-down plan of the same simple rectangular room, drawn with double-line walls, a window in the top wall and a door gap at the lower right.
 >
-> Left panel, headed "LANES": one continuous serpentine path in the accent colour, boustrophedon, like mowing a lawn — up the left side, across, back down, across, up again — with arrowheads showing the direction of travel. Five camera icons spaced along the path, each marked with a small upward-pointing chevron to show consistent upward tilt. A tick mark beneath.
+> Left panel: ONE single continuous unbroken path in the accent colour, in a strict boustrophedon pattern — exactly the route a lawnmower takes. Precisely four straight vertical lanes, evenly spaced across the width of the room, joined at alternating ends by short semicircular 180-degree turns: the bottom of lane one to the bottom of lane two, the top of lane two to the top of lane three, the bottom of lane three to the bottom of lane four. The path must never cross itself, never branch, and never break anywhere along its length. Small arrowheads at intervals show one consistent direction of travel. Four cameras spaced along the lanes, each with a small chevron directly above it pointing upward. A large tick mark centred beneath the room.
 >
-> Right panel, headed "STANDING STILL": a single camera icon at the centre of the room, with eight short view cones radiating outward from that one point in a full circle. No path, no travel. A cross mark beneath.
+> Right panel: one camera at the exact centre of the room, with eight short dashed arrows radiating outward from it in a full circle. No path, no travel, no second camera. A large cross mark centred beneath the room.
 >
-> Caption beneath the left: "Tilt while moving." Caption beneath the right: "Tilting instead of moving."
->
-> NO TEXT variant: identical, headings and captions omitted.
+> NO TEXT anywhere in the image.
 >
 > Aspect ratio 16:9. Generate at the largest resolution available.
 
