@@ -12,6 +12,30 @@ Prompts for producing the nine diagrams briefed in [README.md](README.md) with a
 
 **Expect rerolls on 1, 5 and 9.** They are the three that depend on a correct/incorrect contrast, and models tend to render both halves as correct.
 
+**Set the aspect ratio explicitly.** Left to itself a model will letterbox or recompose the diagram to fill whatever canvas it defaults to, which on the paired-panel diagrams squeezes both panels into half the width they need. Every prompt below carries its ratio on the last line. Ratios are reliable across models; exact pixel dimensions are not, so control the shape and let resolution follow.
+
+---
+
+## Size and aspect ratio
+
+| # | Diagram | Ratio | Why |
+|---|---|---|---|
+| 1 | Rotation vs translation | 16:9 | Two panels side by side |
+| 2 | Three orbit heights | 4:3 | Tall subject, wide rings, labels to the right |
+| 3 | Wide, medium, detail | 16:9 | Subject plus three frames in a row |
+| 4 | Turning a corner | 1:1 | Top-down plan, roughly square footprint |
+| 5 | Connected vs isolated | 16:9 | Two panels side by side |
+| 6 | Walking vs camera direction | 16:9 | Long horizontal path |
+| 7 | The room path | 4:3 | Top-down room plan plus legend |
+| 8 | Three vertical bands | 16:9 | Wedges extending across a cross-section |
+| 9 | Ceiling lanes | 16:9 | Two room plans side by side |
+
+**Generate at the largest resolution the model offers**, then downscale. These diagrams carry fine detail — dotted sight lines in 1 and 6, diagonal hatching in 8 — that disappears first when a small render is scaled up. As a floor, 1536px on the long edge.
+
+**Final size in the repo:** around 1600px on the long edge for raster, which covers both a GitHub column at 2× and an A4 handout at 300dpi. If you convert to SVG, as recommended below, pixel dimensions stop mattering — but the aspect ratio still governs how the diagram is composed, so set it at generation time regardless.
+
+**Ratio syntax by model:** Midjourney takes `--ar 16:9` appended to the prompt. DALL·E 3 and ChatGPT take 1792×1024 for 16:9 and 1024×1024 for square, with no true 4:3 — use square and crop. Imagen and Gemini accept 16:9, 4:3 and 1:1 as presets. Flux and Stable Diffusion take arbitrary dimensions; keep each side a multiple of 64.
+
 ---
 
 ## Style block
@@ -35,6 +59,8 @@ Prepend this to every prompt:
 > In both panels, mark one specific point on the statue with a small filled dot, and draw fine dotted sight lines from each camera to that dot, so the reader can see the sight lines are near-identical on the left and clearly divergent on the right.
 >
 > NO TEXT variant: identical, but omit all headings and captions, leaving clear empty space where they would sit.
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ### 2. Three orbit heights
 
@@ -47,6 +73,8 @@ Prepend this to every prompt:
 > Label each ring to its right, on a leader line: "HIGH — angled down", "EYE LEVEL — horizontal", "LOW — angled up".
 >
 > NO TEXT variant: identical, with leader lines drawn but their labels omitted.
+>
+> Aspect ratio 4:3. Generate at the largest resolution available.
 
 ### 3. Wide, medium, detail
 
@@ -59,6 +87,8 @@ Prepend this to every prompt:
 > Beneath the row, a horizontal arrow running left to right through three labels: "WHOLE" then "REGION" then "DETAIL".
 >
 > NO TEXT variant: identical, with the linking dotted lines and circles kept but all labels omitted.
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ### 4. Turning a corner
 
@@ -71,6 +101,8 @@ Prepend this to every prompt:
 > Label the middle camera on a leader line: "Both faces in view".
 >
 > NO TEXT variant: identical, leader line drawn, label omitted.
+>
+> Aspect ratio 1:1. Generate at the largest resolution available.
 
 ### 5. Connected vs isolated views
 
@@ -87,6 +119,8 @@ Prepend this to every prompt:
 ---
 
 ## 02 — Scanning Environments
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ### 6. Walking direction vs camera direction
 
@@ -99,6 +133,8 @@ Prepend this to every prompt:
 > A single small filled dot sits in the upper left area, representing a fixed feature in the room. Draw fine dotted sight lines from each of the four cameras to that one dot, making clear that the angle to it changes substantially from the first camera to the last.
 >
 > NO TEXT variant: identical, all labels omitted, sight lines and cones kept.
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ### 7. The room path
 
@@ -113,6 +149,8 @@ Prepend this to every prompt:
 > A compact legend in the lower right corner outside the room outline, with a short sample of each line style: "Perimeter", "Diagonals", "Crossing", "Local arc".
 >
 > NO TEXT variant: identical, legend drawn as line samples in a box with the names omitted.
+>
+> Aspect ratio 4:3. Generate at the largest resolution available.
 
 ### 8. Three vertical bands
 
@@ -125,6 +163,8 @@ Prepend this to every prompt:
 > Label the wedges at their right-hand ends: "UPPER", "MIDDLE", "LOWER". Label both hatched zones: "overlap".
 >
 > NO TEXT variant: identical, hatching and leader lines kept, all labels omitted.
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ### 9. Ceiling lanes
 
@@ -137,6 +177,8 @@ Prepend this to every prompt:
 > Caption beneath the left: "Tilt while moving." Caption beneath the right: "Tilting instead of moving."
 >
 > NO TEXT variant: identical, headings and captions omitted.
+>
+> Aspect ratio 16:9. Generate at the largest resolution available.
 
 ---
 
