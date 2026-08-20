@@ -7,13 +7,14 @@ A practical guide to spatial storytelling: how to scan an object or a place with
 - **[01 — Scanning Objects](01-scanning-objects.md)** — capturing anything you stand outside of and look inward at, from a desktop object to a whole building.
 - **[02 — Scanning Environments](02-scanning-environments.md)** — capturing a room or interior, where you are inside the thing you are recording: path design, coverage, and the failure modes worth knowing before you start.
 - **[03 — Processing to 3DGS](03-processing-3dgs.md)** — turning a raw capture into a trained, cleaned, compressed splat, with free and paid tools.
-- **[04 — Story Collection and Interviews](04-story-collection-and-interviews.md)** — gathering the account that gives the scan its meaning.
+- **[04 — Story Collection and Interviews](04-story-collection-and-interviews.md)** — gathering the account that gives the scan its meaning. *Pending — outline only.*
+- **[05 — Storytelling with Spatial Information](05-storytelling-with-spatial-information.md)** — how text, photographs, video and recorded voice attach to a captured space, and what each contributes that the scan cannot. *Pending — outline only.*
 
-Scanning and story collection usually happen on the same visit. Processing happens afterwards, at a desk.
+Scanning and story collection usually happen on the same visit. Processing happens afterwards, at a desk. Guides 01 to 03 are written; 04 and 05 are outlines awaiting content.
 
 ## After the scan
 
-This guide ends once you have a trained scan. Authoring that scan into something a reader can move through, and publishing it, is the job of the [Spatial Storytelling Engine](https://github.com/IntoStorymode/Spatial-Storytelling-Engine).
+This guide covers the editorial side of what comes next — what to attach to a scan and why, in guide 05. Building and publishing the result is the job of the [Spatial Storytelling Engine](https://github.com/IntoStorymode/Spatial-Storytelling-Engine).
 
 Engine-specific handling of splats — supported formats, import, orientation — is documented there in [`docs/GAUSSIAN-SPLATS.md`](https://github.com/IntoStorymode/Spatial-Storytelling-Engine/blob/main/docs/GAUSSIAN-SPLATS.md), and is not repeated here.
 
