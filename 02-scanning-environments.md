@@ -160,7 +160,11 @@ Portrait is worth it for strongly vertical spaces: stairwells, narrow corridors,
 
 **Do not rotate the phone mid-recording.** Keep the orientation constant through a pass. If you need vertical coverage, change the camera angle, not the orientation.
 
-**Use the main (1×) lens.** Ultra-wide is tempting indoors because it fits more of the room in, but it costs distortion, fine detail and low-light performance — and trackable detail matters more than field of view. Reach for 0.5× only in genuinely confined spaces.
+**The lens choice indoors is a light problem, not a distortion problem.** Distortion is not a reason to avoid a wide lens: the solver estimates lens distortion as part of alignment, and trainers can model distorted cameras directly rather than correcting them away. A wider lens genuinely helps a room — more of the space in each frame means more overlap between frames, better-constrained camera positions, and fewer passes to cover the same walls.
+
+What argues against a phone's ultra-wide indoors is the camera behind it. It sits on a much smaller sensor with a narrower aperture, so in the low light that interiors usually have it produces more noise, heavier noise reduction that smears fine texture, and longer exposures that turn ordinary walking speed into blur. Blur and smeared texture damage feature matching directly.
+
+So: **use the wide lens where the light supports it** — bright rooms, daylight through large windows, confined spaces where you cannot back up far enough to see a wall. Fall back to the main lens as light drops. Where the room is dim, the main lens wins on image quality by more than the wide lens gains on coverage.
 
 ## Doing this in Scaniverse
 
@@ -172,7 +176,7 @@ Its limits show up on scale and on transitions. A large or complex interior, or 
 
 ## Shooting video for desktop training
 
-The settings are the same as for objects: highest resolution, lowest frame rate, exposure and focus and white balance locked before you start, short exposure and small aperture, high ISO accepted in preference to blur, no flash.
+The settings are the same as for objects: capture in 4K but downscale to around 1600px wide before alignment, lowest frame rate, exposure and focus and white balance locked before you start, short exposure and small aperture, high ISO accepted in preference to blur, no flash.
 
 Indoors, two of these matter more than they do outside. Light is usually poorer, so the camera lengthens its exposure and any speed turns into blur — move slower than you think you need to. And rooms very often contain a bright window and a dark interior at once, which is the hardest exposure case there is; lock for the interior and accept the blown window rather than letting the exposure hunt between frames.
 
