@@ -2,6 +2,8 @@
 
 Nine diagrams, one per idea that prose carries badly. All nine are in place and referenced from the guides.
 
+A tenth, `diagram-10-processing-routes.svg`, is **drawn rather than generated** — it is a flowchart, so it was written directly as SVG. It is the reference for the pass described below: real text instead of caption-carried labels, theme-aware colour, and clean scaling to print.
+
 They were generated from the prompts in [PROMPTS.md](PROMPTS.md) and are **deliberately label-free** — text rendering is the least reliable part of an image model, so the labelling is carried by the markdown caption beneath each image instead. That works, but it is a workaround, not the end state.
 
 ## Status
@@ -36,4 +38,6 @@ The brief for each diagram — what it must show — is preserved in [PROMPTS.md
 
 ## Format notes
 
-Current files are PNG, around 1600px on the long edge, quantised to a 64-colour palette. That covers a GitHub column at 2× and A4 at 300dpi. Aspect ratios are 16:9 for 1, 3, 5, 6, 8 and 9; 4:3 for 2 and 7; 1:1 for 4.
+`diagram-10-processing-routes.svg` is SVG on a 1000×780 viewBox. Its palette is defined once as CSS custom properties on the root and redefined under `prefers-color-scheme: dark`, so it stays legible in both GitHub themes. Reuse that block when the other nine are redrawn.
+
+The nine generated files are PNG, around 1600px on the long edge, quantised to a 64-colour palette. That covers a GitHub column at 2× and A4 at 300dpi. Aspect ratios are 16:9 for 1, 3, 5, 6, 8 and 9; 4:3 for 2 and 7; 1:1 for 4.
