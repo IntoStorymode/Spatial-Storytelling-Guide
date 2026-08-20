@@ -2,6 +2,8 @@
 
 Nine diagrams, one per idea that prose carries badly. All nine are in place and referenced from the guides.
 
+A tenth is marked but not yet drawn: [`03-processing-3dgs.md`](../03-processing-3dgs.md) carries a `<!-- DIAGRAM -->` slot for the three processing routes shown side by side as vertical flows, capture at the top and PLY/SOG at the bottom, distinguishing the steps a phone app hides from the steps a desktop route exposes. It is a flowchart rather than a spatial illustration, so it belongs in the SVG pass below rather than in another generation round.
+
 They were generated from the prompts in [PROMPTS.md](PROMPTS.md) and are **deliberately label-free** — text rendering is the least reliable part of an image model, so the labelling is carried by the markdown caption beneath each image instead. That works, but it is a workaround, not the end state.
 
 ## Status
