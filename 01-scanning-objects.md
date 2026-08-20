@@ -143,10 +143,11 @@ Its practical limit is scale. A single object, a monument, a room: comfortable. 
 
 For subjects Scaniverse cannot hold, or when you want more control over the result, record video and train it on a desktop.
 
-- Record in the **highest resolution** available, and the **lowest frame rate**. Postshot typically samples only 2–3 frames per second from an imported video, so a high frame rate costs you storage and buys you nothing.
+- **Capture high, process low.** Record in 4K, then downscale before alignment. The two are separate decisions and it is worth being clear why. Phone video is heavily compressed, so a 4K frame reduced to around 1600px wide holds more real detail and fewer codec artefacts than a native 1080p frame — and the reduction averages out sensor noise, which helps the solver. But feeding full-resolution frames into alignment and training is wasted effort: the reference 3DGS implementation downscales anything wider than 1600px automatically, and its authors recommend leaving that alone. See [03 — Processing to 3DGS](03-processing-3dgs.md) for where in the pipeline the downscale happens.
+- Record at the **lowest frame rate** available. Postshot typically samples only 2–3 frames per second from an imported video, so a high frame rate costs you storage and buys you nothing.
 - **Lock exposure, focus and white balance** before you start. Auto settings drifting mid-capture is a common cause of failure — the same surface changing brightness between frames confuses the solver.
 - Favour a **short exposure and a small aperture**. Reconstruction tolerates image noise considerably better than it tolerates blur, so raising ISO to keep the shutter fast is the right trade.
-- Prefer the **main (1×) lens**. Ultra-wide fits more in, at the cost of distortion, detail and low-light performance.
+- **Choose the lens on light, not on distortion.** Lens distortion is not a problem: the solver estimates it and the trainer can model it directly. A wider lens puts more of the subject in every frame, which means more overlap between frames and better-constrained camera positions. The real cost of a phone's ultra-wide is its sensor — smaller, dimmer, noisier, and slower to expose. Outdoors in good light, the wide lens is often the better choice. As light drops, move back to the main lens.
 - Do not use flash.
 
 <!-- FIELD NOTE: kit actually used — phone vs camera, stabilisation, and whether the desktop route has proved worth the extra time for heritage subjects. -->

@@ -16,6 +16,18 @@ A phone app does both on the device and shows you neither. The desktop routes se
 
 *The phone route performs both operations invisibly. The desktop routes expose them, which is what makes it possible to fix a bad solve without re-shooting, or retrain without re-solving.*
 
+## Resolution: the setting that matters most
+
+Before any route, one decision governs both how long processing takes and how sharp the result is, and the intuitive answer is wrong.
+
+**More pixels do not buy more clarity.** The reference 3DGS implementation downscales any image wider than 1600px automatically, and its authors recommend leaving that behaviour in place. Above that width the extra pixels are discarded before training sees them. Worse, forcing full resolution often makes the result *softer*, not sharper: densification decides whether to split a splat by comparing a positional gradient against a fixed threshold, and the gradient a given piece of geometry produces depends on the render resolution. Thresholds tuned around 1600px under-densify above it, so you end up with fewer, larger splats covering more detail.
+
+**Resolution is also the main lever on alignment time.** Feature extraction and matching scale with pixel count — COLMAP itself downscales above 3200px by default. Halving your working resolution is the cheapest speed-up available.
+
+So: **capture high, process low.** Shoot 4K, then downscale to around 1600px wide before alignment. Downscaling a compressed 4K frame is not the same as shooting at 1080p — it retains more genuine detail, and it averages away sensor noise and codec artefacts that would otherwise mislead feature matching.
+
+The exception is a subject with fine texture you intend to read at close range. Postshot's higher-quality profiles are documented as making use of higher-resolution detail, so there is some headroom there. Treat it as a deliberate choice for a specific scan, not a default.
+
 ## The three routes
 
 | | Phone | Desktop, paid | Desktop, open source |
@@ -53,6 +65,7 @@ Its limit is scale and control. There are no training settings, so a scan that c
    - **Max splat count** — the ceiling on how many splats the scene may use. Higher means more fine detail, a larger file, and more VRAM.
    - **SH degree** — how much view-dependent colour each splat carries. Higher degrees reproduce sheen, reflection and the way a surface shifts colour as you move around it, at the cost of file size. Lower degrees flatten the scene towards uniform colour but are much lighter.
    - **Training steps** — how many optimisation iterations to run. More steps sharpen the result with diminishing returns, and directly set how long you wait.
+   - **Downsample images** — the working resolution, as above. Leave the downsampling on unless you have a specific reason to want the extra detail and a profile that can use it.
 3. Wait. Twenty minutes is a short train; a large scene at a high splat count is considerably longer.
 4. Export **PLY** for a lossless working file, or **SOG** for a compressed one.
 
@@ -69,6 +82,8 @@ More steps, no licence, and you see every stage. This is the route to use when a
 **2. Extract sharp frames.** [Sharp Frames](https://sharp-frames.reflct.app/) by Reflct pulls full-resolution frames out of the video, measures each one for blur, and selects across the sequence rather than at a fixed interval. It runs entirely in the browser — the footage never leaves your machine — and accepts MP4, MOV and WebM. Use Chrome, and note the roughly 1.9 GB file ceiling that browser memory imposes; long captures need splitting.
 
 Aim for frames that overlap by about 80%. Reflct's own guidance is to sample at ten or more frames per second and keep the sharpest of every five, which lands near one frame every half second. A modest dataset is around 100 images; a large one runs to 1000 or more. Past that you are mostly adding near-duplicate views, which costs training time and can degrade the result rather than improve it.
+
+**Downscale the extracted frames to around 1600px wide before the next step**, for the reasons above. This is where the resolution decision actually gets made, and it is the difference between an alignment that takes minutes and one that takes hours.
 
 **3. Screen the frames yourself.** Open the folder and delete anything the blur measure let through: frames with people walking through them, frames where the exposure hunted, frames of a wall and nothing else. This takes ten minutes and is the highest-value ten minutes in the route.
 
@@ -137,6 +152,7 @@ Engine-specific import and orientation details are documented in the Spatial Sto
 ## In short
 
 - Two operations, always: solve where the camera was, then train the splats.
+- Capture high, process low. Shoot 4K, downscale to about 1600px wide before alignment.
 - Three routes: phone for speed, Postshot for control behind a paid export, open source for control at no cost and more steps.
 - Postshot's free tier cannot export a splat.
 - Clean in SuperSplat before you compress.
