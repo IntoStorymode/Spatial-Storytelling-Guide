@@ -12,14 +12,16 @@ Every route performs the same two operations, whether or not it shows them to yo
 
 A phone app does both on the device and shows you neither. The desktop routes separate them, which is the entire reason to use one: you can inspect the alignment before committing an hour to training, and you can retrain with different settings without re-solving.
 
-<!-- DIAGRAM: the three routes side by side as vertical flows — capture at the top, PLY/SOG at the bottom — showing which steps are hidden inside the phone app and which are exposed on desktop. -->
+![The three processing routes](diagrams/diagram-10-processing-routes.svg)
+
+*The phone route performs both operations invisibly. The desktop routes expose them, which is what makes it possible to fix a bad solve without re-shooting, or retrain without re-solving.*
 
 ## The three routes
 
 | | Phone | Desktop, paid | Desktop, open source |
 |---|---|---|---|
 | Tool | Scaniverse | Postshot | Reflct → RealityScan → LichtFeld Studio |
-| Cost | Free | €17/month to export | Free, or $30 for a prebuilt binary |
+| Cost | Free | Free to train, paid to export | Free |
 | Hardware | A recent phone | Windows + NVIDIA GPU | Windows or Linux + NVIDIA GPU |
 | Time to a splat | About a minute | 20 minutes upwards | An hour upwards |
 | Control | None | Training settings | Every step |
@@ -54,9 +56,9 @@ Its limit is scale and control. There are no training settings, so a scan that c
 3. Wait. Twenty minutes is a short train; a large scene at a high splat count is considerably longer.
 4. Export **PLY** for a lossless working file, or **SOG** for a compressed one.
 
-**The free tier cannot export a splat.** It is non-commercial, it watermarks rendered output, and radiance field export is withheld. Exporting PLY or SPZ requires the **Indie** plan at €17/month or €204/year, which also removes the watermark and permits commercial use. Studio, at €39/month, adds HDR and RAW input, output above 4K, and a command line interface. Postshot is Windows-only.
+**The free tier cannot export a splat.** It is non-commercial, it watermarks rendered output, and radiance field export is withheld. PLY and SPZ export, along with commercial use and watermark-free rendering, require the paid **Indie** tier. A further **Studio** tier adds HDR and RAW input, output above 4K, and a command line interface. Postshot is Windows-only.
 
-If you intend to take the splat anywhere else — and this guide assumes you do — budget for Indie or use route 3.
+If you intend to take the splat anywhere else — and this guide assumes you do — the free tier will not get you there. Pay for Indie, or use route 3.
 
 ## Route 3 — Desktop, open source
 
@@ -70,13 +72,15 @@ Aim for frames that overlap by about 80%. Reflct's own guidance is to sample at 
 
 **3. Screen the frames yourself.** Open the folder and delete anything the blur measure let through: frames with people walking through them, frames where the exposure hunted, frames of a wall and nothing else. This takes ten minutes and is the highest-value ten minutes in the route.
 
-**4. Align.** [RealityScan](https://www.realityscan.com/) — formerly RealityCapture — solves camera positions from the frames. It is free for students, educators, and individuals or companies under $1 million USD in annual gross revenue; above that it is $1,250 per seat per year. Import the images, align them, and check the result before going further: look for cameras that landed in the wrong place, and for parts of the subject that no camera sees.
+**4. Align.** [RealityScan](https://www.realityscan.com/) — formerly RealityCapture — solves camera positions from the frames. It is free for students, educators, and individuals or companies under $1 million USD in annual gross revenue; a paid licence is required above that.
+
+Import the images, align them, and look at the camera path before going further. A good alignment produces **one clean, continuous camera track**. If it has broken into several separate tracks, some of your frames did not overlap enough for the solver to join them. Remove those frames and align again, or delete the stray track so that only the intact one is exported.
 
 **5. Export the registration in COLMAP format.** This writes out the camera poses and sparse points in the layout every trainer understands.
 
 On distorted versus undistorted images: export the **original distorted** images and enable 3DGUT in training, which is the better path now that RealityScan 2.1.1 has fixed the quality loss its COLMAP export used to introduce on distorted images. Export undistorted images only if you are training with something that assumes a plain pinhole camera. Undistorting throws away pixels at the frame edges, so avoid it when you do not need it.
 
-**6. Train.** [LichtFeld Studio](https://lichtfeld.io/) loads a COLMAP dataset and trains, inspects and exports from one application. It is GPL-3.0: build it from source for nothing, or pay a minimum $30 contribution for the prebuilt Windows binary. Windows and Linux, NVIDIA only.
+**6. Train.** [LichtFeld Studio](https://lichtfeld.io/) loads a COLMAP dataset and trains, inspects and exports from one application. It is GPL-3.0: build it from source for nothing, or make a contribution to get the prebuilt Windows binary. Windows and Linux, NVIDIA only.
 
 **7. Set the parameters.** Max splat count and training steps behave as they do in Postshot. Two more are worth knowing:
    - **3DGUT** — replaces the standard projection with one that handles distorted camera models directly, so fisheye distortion and rolling shutter are modelled rather than corrected away. This is what lets you feed it the distorted images from step 5.
@@ -118,15 +122,11 @@ If you do not have that machine, the phone route needs none of it, and SuperSpla
 
 <!-- FIELD NOTE: actual training times and VRAM use on the machine you use, per route, for a typical object and a typical room. -->
 
-## Not part of this pipeline
-
-[World Labs](https://www.worldlabs.ai/) Marble generates a 3D world from text, an image, a panorama or a video, and exports splats. It is genuinely impressive and it is not a step in this pipeline. Marble **generates** a plausible space; the tools above **reconstruct** a real one from measurements of it. For documenting a place that exists, the difference is the whole point.
-
 ## Choosing between them
 
 Start on the phone. It is free, it is fast, and it tells you within a minute whether the capture was any good — which is worth more than a better trainer applied to worse footage.
 
-Move to Postshot when you want control and would rather pay €17 than assemble a pipeline.
+Move to Postshot when you want control and would rather pay for a licence than assemble a pipeline.
 
 Use route 3 when the scan matters: when you need to see the alignment before training, retrain without re-solving, keep everything local, or work without a licence.
 
@@ -137,7 +137,7 @@ Engine-specific import and orientation details are documented in the Spatial Sto
 ## In short
 
 - Two operations, always: solve where the camera was, then train the splats.
-- Three routes: phone for speed, Postshot for control at €17/month, open source for control at no cost and more steps.
+- Three routes: phone for speed, Postshot for control behind a paid export, open source for control at no cost and more steps.
 - Postshot's free tier cannot export a splat.
 - Clean in SuperSplat before you compress.
 - Work in PLY. Deliver in SOG.

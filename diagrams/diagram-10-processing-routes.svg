@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 780" width="1000" height="780" role="img" aria-labelledby="t d">
+  <title id="t">The three processing routes</title>
+  <desc id="d">Three vertical flows side by side, capture at the top and an exported file at the bottom. The phone route hides camera solving and training inside the app; the two desktop routes expose each step. All three converge on cleanup in SuperSplat and delivery as SOG.</desc>
+
+  <style>
+    :root, svg {
+      --bg: #ffffff;
+      --fg: #1c1c1a;
+      --muted: #6e6e68;
+      --line: #7a7a72;
+      --fill: #f5f4f1;
+      --accent: #b8552f;
+      --accentfill: #fbf1ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --bg: #10100f;
+        --fg: #e9e7e2;
+        --muted: #9a978f;
+        --line: #8d8a82;
+        --fill: #1e1e1c;
+        --accent: #e08a5f;
+        --accentfill: #2a201b;
+      }
+    }
+    text {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      fill: var(--fg);
+    }
+    .title { font-size: 15px; font-weight: 600; text-anchor: middle; }
+    .sub { font-size: 11.5px; text-anchor: middle; fill: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .lbl { font-size: 12.5px; text-anchor: middle; }
+    .note { font-size: 11px; font-style: italic; text-anchor: middle; fill: var(--muted); }
+    .box { fill: var(--fill); stroke: var(--line); stroke-width: 1.25; }
+    .out { fill: var(--accentfill); stroke: var(--accent); stroke-width: 1.5; }
+    .out + text, .outlbl { fill: var(--accent); }
+    .group { fill: none; stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 5 4; }
+    .flow { stroke: var(--line); stroke-width: 1.5; fill: none; }
+    .arrowhead { fill: var(--line); }
+    .rule { stroke: var(--muted); stroke-width: 1; }
+  </style>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 9 9" refX="8" refY="4.5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" class="arrowhead"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="780" fill="var(--bg)"/>
+
+  <!-- ============ column headings ============ -->
+  <text class="title" x="170" y="38">Phone</text>
+  <text class="sub"   x="170" y="57">free</text>
+  <text class="title" x="500" y="38">Desktop, Postshot</text>
+  <text class="sub"   x="500" y="57">paid to export</text>
+  <text class="title" x="830" y="38">Desktop, open source</text>
+  <text class="sub"   x="830" y="57">free</text>
+
+  <line class="rule" x1="325" y1="30" x2="325" y2="590"/>
+  <line class="rule" x1="655" y1="30" x2="655" y2="590"/>
+
+  <!-- ============ column 1 — phone ============ -->
+  <rect class="box" x="45" y="76" width="250" height="42" rx="6"/>
+  <text class="lbl" x="170" y="102">Capture in Scaniverse</text>
+  <line class="flow" x1="170" y1="118" x2="170" y2="140" marker-end="url(#arrow)"/>
+
+  <rect class="group" x="33" y="140" width="274" height="160" rx="8"/>
+  <text class="note" x="170" y="160">inside the app — none of this is exposed</text>
+
+  <rect class="box" x="45" y="172" width="250" height="42" rx="6"/>
+  <text class="lbl" x="170" y="198">Solve camera positions</text>
+  <line class="flow" x1="170" y1="214" x2="170" y2="236" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="45" y="236" width="250" height="42" rx="6"/>
+  <text class="lbl" x="170" y="262">Train</text>
+
+  <line class="flow" x1="170" y1="300" x2="170" y2="318" marker-end="url(#arrow)"/>
+  <rect class="out" x="45" y="318" width="250" height="42" rx="6"/>
+  <text class="lbl outlbl" x="170" y="344">PLY or SPZ</text>
+
+  <!-- ============ column 2 — Postshot ============ -->
+  <rect class="box" x="375" y="76" width="250" height="42" rx="6"/>
+  <text class="lbl" x="500" y="102">Record video</text>
+  <line class="flow" x1="500" y1="118" x2="500" y2="142" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="375" y="142" width="250" height="42" rx="6"/>
+  <text class="lbl" x="500" y="168">Import to Postshot</text>
+  <line class="flow" x1="500" y1="184" x2="500" y2="206" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="375" y="206" width="250" height="42" rx="6"/>
+  <text class="lbl" x="500" y="232">Set training parameters</text>
+  <line class="flow" x1="500" y1="248" x2="500" y2="270" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="375" y="270" width="250" height="42" rx="6"/>
+  <text class="lbl" x="500" y="296">Solve and train</text>
+  <line class="flow" x1="500" y1="312" x2="500" y2="334" marker-end="url(#arrow)"/>
+
+  <rect class="out" x="375" y="334" width="250" height="42" rx="6"/>
+  <text class="lbl outlbl" x="500" y="360">Export PLY or SOG</text>
+
+  <!-- ============ column 3 — open source ============ -->
+  <rect class="box" x="705" y="76" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="102">Record video</text>
+  <line class="flow" x1="830" y1="118" x2="830" y2="142" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="142" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="168">HandBrake — convert to MP4</text>
+  <line class="flow" x1="830" y1="184" x2="830" y2="206" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="206" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="232">Sharp Frames — extract frames</text>
+  <line class="flow" x1="830" y1="248" x2="830" y2="270" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="270" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="296">Screen the frames by hand</text>
+  <line class="flow" x1="830" y1="312" x2="830" y2="334" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="334" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="360">RealityScan — align</text>
+  <line class="flow" x1="830" y1="376" x2="830" y2="398" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="398" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="424">Export COLMAP format</text>
+  <line class="flow" x1="830" y1="440" x2="830" y2="462" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="705" y="462" width="250" height="42" rx="6"/>
+  <text class="lbl" x="830" y="488">LichtFeld Studio — train</text>
+  <line class="flow" x1="830" y1="504" x2="830" y2="526" marker-end="url(#arrow)"/>
+
+  <rect class="out" x="705" y="526" width="250" height="42" rx="6"/>
+  <text class="lbl outlbl" x="830" y="552">Export PLY or SOG</text>
+
+  <!-- ============ convergence ============ -->
+  <path class="flow" d="M170,360 L170,610"/>
+  <path class="flow" d="M830,568 L830,610"/>
+  <path class="flow" d="M170,610 L830,610"/>
+  <path class="flow" d="M500,376 L500,634" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="375" y="634" width="250" height="42" rx="6"/>
+  <text class="lbl" x="500" y="660">SuperSplat — clean up</text>
+  <line class="flow" x1="500" y1="676" x2="500" y2="700" marker-end="url(#arrow)"/>
+
+  <rect class="out" x="375" y="700" width="250" height="42" rx="6"/>
+  <text class="lbl outlbl" x="500" y="726">SOG — deliver</text>
+
+  <text class="note" x="500" y="765">Work in PLY. Compress once, at the end.</text>
+</svg>
