@@ -6,6 +6,8 @@ Supplementary material for anyone running this guide as a session. Not required 
 
 [`deck.html`](deck.html) is a 39-slide workshop deck in one self-contained HTML file. It needs no software, no install and no network connection: open it straight from disk in a browser.
 
+**[Open the deck online →](https://intostorymode.github.io/Spatial-Storytelling-Guide/workshop-materials/deck.html)** It is published with GitHub Pages and updates on every merge to `main`.
+
 It runs in two parts, in this order:
 
 1. **Telling stories inside a scan.** Assumes the 3D scan already exists. The idea behind the [Spatial Storytelling Engine](https://github.com/IntoStorymode/Spatial-Storytelling-Engine), the two ways to read a story, sections and waypoints, the editorial choices from [guide 05](../05-storytelling-with-spatial-information.md), and publishing.

@@ -22,6 +22,8 @@ Engine-specific handling of splats — supported formats, import, orientation �
 
 [`workshop-materials/`](workshop-materials/) holds a slide deck, with its script as speaker notes, for anyone running this as a session. It is supplementary; the guides do not depend on it.
 
+**[Open the deck →](https://intostorymode.github.io/Spatial-Storytelling-Guide/workshop-materials/deck.html)**
+
 ## License
 
 [CC BY 4.0](LICENSE). This repository is written and reference material, not software — use it, adapt it, and teach from it, with attribution. The Spatial Storytelling Engine is a separate repository under the MIT license.
