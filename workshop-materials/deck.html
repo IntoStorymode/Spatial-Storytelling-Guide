@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spatial Storytelling Workshop</title>
+<!--
+  Workshop deck for the Spatial Storytelling Guide.
+  One self-contained file: no libraries, no network requests. Open it straight from disk.
+
+  Keys:  → / Space / PageDown  next      ← / PageUp  previous      Home / End  first / last
+         N  speaker notes      T  light / dark / system theme      F  fullscreen
+  Print to PDF from the browser for a one-slide-per-page handout.
+
+  Slides are <section class="slide">. Speaker notes are the <aside class="notes"> inside each.
+  Demo slots are <section class="slide slot" data-slot="a|b|c"> — the cue to switch to a browser tab.
+-->
+<style>
+  :root {
+    --bg: #ffffff;
+    --outer: #e9e7e2;
+    --fg: #1c1c1a;
+    --muted: #6e6e68;
+    --line: #7a7a72;
+    --fill: #f5f4f1;
+    --accent: #b8552f;
+    --accentfill: #fbf1ec;
+    --plate: #ffffff;
+    --slot: #dcdad5;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10100f;
+      --outer: #000000;
+      --fg: #e9e7e2;
+      --muted: #9a978f;
+      --line: #8d8a82;
+      --fill: #1e1e1c;
+      --accent: #e08a5f;
+      --accentfill: #2a201b;
+      --plate: #f5f4f1;
+      --slot: #2b2b29;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10100f;
+    --outer: #000000;
+    --fg: #e9e7e2;
+    --muted: #9a978f;
+    --line: #8d8a82;
+    --fill: #1e1e1c;
+    --accent: #e08a5f;
+    --accentfill: #2a201b;
+    --plate: #f5f4f1;
+    --slot: #2b2b29;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--outer); font-family: var(--sans); overflow: hidden; }
+
+  .deck { height: 100vh; display: grid; place-items: center; }
+
+  /* 16:9 stage, scaled to the window. Type is sized in container units so it scales with it. */
+  .slide {
+    width: min(100vw, calc(100vh * 16 / 9));
+    aspect-ratio: 16 / 9;
+    container-type: size;
+    background: var(--bg);
+    color: var(--fg);
+    padding: 7cqh 7cqw 10cqh;
+    display: flex;
+    flex-direction: column;
+    gap: 3cqh;
+    position: relative;
+    overflow: hidden;
+    font-size: 2.1cqw;
+    line-height: 1.45;
+  }
+  .slide[hidden] { display: none; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; line-height: 1.15; }
+  h1 { font-size: 5.4cqw; }
+  h2 { font-size: 3.5cqw; }
+  h3 { font-size: 2.3cqw; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding-left: 1.2em; display: grid; gap: 0.5em; }
+  strong { font-weight: 650; }
+  em { font-style: italic; }
+  code { font-family: var(--mono); font-size: 0.9em; }
+
+  .slide .kicker {
+    font-size: 1.3cqw;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .muted { color: var(--muted); }
+  .lede { font-size: 2.5cqw; max-width: 60cqw; }
+  .spacer { flex: 1; }
+
+  blockquote {
+    margin: 0;
+    padding-left: 1.2em;
+    border-left: 0.35cqw solid var(--accent);
+    font-family: var(--serif);
+    font-size: 2.8cqw;
+    line-height: 1.3;
+  }
+
+  /* Layouts */
+  .statement { justify-content: center; }
+  .statement h2 { font-size: 5cqw; max-width: 75cqw; }
+  .statement p { font-size: 2.5cqw; max-width: 65cqw; color: var(--muted); }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 5cqw; align-items: start; }
+  .cards { display: grid; gap: 2cqw; align-content: start; }
+  .cards.two { grid-template-columns: repeat(2, 1fr); }
+  .cards.three { grid-template-columns: repeat(3, 1fr); }
+  .cards.four { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: var(--fill);
+    border: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
+    border-radius: 0.8cqw;
+    padding: 2cqw;
+    display: grid;
+    gap: 0.6em;
+    align-content: start;
+    font-size: 1.8cqw;
+  }
+  .card h3 { font-size: 2.2cqw; }
+
+  .steps { list-style: none; padding: 0; counter-reset: step; gap: 1.6cqh; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 3.2cqw 1fr; align-items: baseline; }
+  .steps li::before {
+    content: counter(step);
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 2.6cqw;
+  }
+
+  .split { display: grid; grid-template-columns: 1.35fr 1fr; gap: 4cqw; align-items: center; flex: 1; min-height: 0; }
+  .split.even { grid-template-columns: 1fr 1fr; }
+  figure { margin: 0; display: grid; gap: 1.2cqh; min-height: 0; }
+  figcaption { font-size: 1.45cqw; color: var(--muted); font-style: italic; }
+  /* The generated diagrams are drawn on white, so they sit on a light plate in both themes. */
+  .plate {
+    background: var(--plate);
+    border-radius: 0.8cqw;
+    padding: 1.2cqw;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+  }
+  .plate img { display: block; max-width: 100%; max-height: 52cqh; height: auto; }
+  .drawn-img img { display: block; max-width: 100%; max-height: 58cqh; }
+  .shot img { display: block; max-width: 100%; max-height: 58cqh; border-radius: 0.6cqw; border: 1px solid color-mix(in srgb, var(--line) 40%, transparent); }
+  svg.drawn { width: 100%; height: auto; max-height: 56cqh; display: block; }
+  svg.drawn text { font-family: var(--sans); fill: var(--fg); }
+
+  pre {
+    margin: 0;
+    background: var(--fill);
+    border-radius: 0.8cqw;
+    padding: 2cqw 2.4cqw;
+    font-family: var(--mono);
+    font-size: 1.45cqw;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+  pre .c { color: var(--muted); }
+  pre .k { color: var(--accent); }
+
+  /* Title and dividers */
+  .title { justify-content: flex-end; }
+  .title h1 { font-size: 6.4cqw; max-width: 70cqw; }
+  .divider { justify-content: center; background: var(--fill); }
+  .divider .num { font-family: var(--serif); font-size: 12cqw; line-height: 1; color: var(--accent); }
+
+  /* Demo slots: deliberately different, so the presenter sees the cue at a glance. */
+  .slot {
+    justify-content: center;
+    background: var(--slot);
+  }
+  .slot h2 { font-size: 5.4cqw; }
+  .slot p { font-size: 2.4cqw; max-width: 62cqw; }
+  .slot .cue {
+    position: absolute;
+    right: 7cqw;
+    bottom: 7cqh;
+    font-size: 1.4cqw;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.6em 1.2em;
+  }
+
+  .foot {
+    position: absolute;
+    left: 7cqw;
+    right: 7cqw;
+    bottom: 3.2cqh;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.15cqw;
+    color: var(--muted);
+  }
+
+  /* Speaker notes: the source lives in each slide; this panel shows the current one. */
+  .notes { display: none; }
+  #notes {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 42vh;
+    overflow: auto;
+    background: #1c1c1a;
+    color: #e9e7e2;
+    font: 16px/1.5 var(--sans);
+    padding: 16px 24px 20px;
+    border-top: 3px solid #e08a5f;
+    z-index: 10;
+  }
+  #notes[hidden] { display: none; }
+  #notes .label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #9a978f; margin-bottom: 6px; }
+  #notes p + p, #notes p + ul, #notes ul + p { margin-top: 0.6em; }
+  #notes ul { display: block; padding-left: 1.2em; }
+
+  @media print {
+    @page { size: 13.333in 7.5in; margin: 0; }
+    :root, :root[data-theme] {
+      --bg: #ffffff; --fg: #1c1c1a; --muted: #6e6e68; --line: #7a7a72;
+      --fill: #f5f4f1; --accent: #b8552f; --accentfill: #fbf1ec; --plate: #ffffff; --slot: #dcdad5;
+      color-scheme: light;
+    }
+    html, body { height: auto; overflow: visible; background: #fff; }
+    .deck { display: block; height: auto; }
+    .slide, .slide[hidden] {
+      display: flex;
+      width: 13.333in;
+      height: 7.5in;
+      break-after: page;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    #notes { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+<!-- ============================== OPENING ============================== -->
+
+<section class="slide title">
+  <p class="kicker">Workshop</p>
+  <h1>Telling stories inside a scanned place</h1>
+  <p class="lede muted">Part 1: authoring a story in the Spatial Storytelling Engine. Part 2: making the 3D scan, easily.</p>
+  <aside class="notes">
+    <p>Welcome. Say who you are and why you are here — keep it to a minute. The next slide is a demo, so have the browser tab ready before you start.</p>
+  </aside>
+</section>
+
+<section class="slide slot" data-slot="a">
+  <p class="kicker">Demo</p>
+  <h2>Why this started</h2>
+  <p>A place that was changing, and the story that belongs to it.</p>
+  <span class="cue">Switch to browser</span>
+  <aside class="notes">
+    <p><strong>Demo slot A.</strong> Show a finished story about a place that has changed or is about to. Show it before explaining anything — the audience should feel the point before hearing it.</p>
+    <p>A good choice for this slot:</p>
+    <ul>
+      <li>is about a real place under pressure — redevelopment, closure, demolition</li>
+      <li>has at least one recorded voice, so the human account is audible</li>
+      <li>works in both views, so you can toggle between page and immersive live</li>
+    </ul>
+    <p>Pick one that suits this audience: your own project, or a local example. Two to three minutes, then come back to the deck.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Today</p>
+  <h2>Two parts, in this order</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>1. Telling the story</h3>
+      <p>Assume the 3D scan already exists. How a story is built inside it: sections, waypoints, media, and the editorial choices that matter.</p>
+    </div>
+    <div class="card">
+      <h3>2. Making the 3D</h3>
+      <p>How to capture a place with a phone, and get the scan into the engine. Easier than it looks, once you know the one rule.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Explain the order: the story comes first because it is the point. The scan is infrastructure — necessary, but it is not what the audience is here to make.</p>
+    <p>Adjust the session times on this slide's spoken version to fit the event.</p>
+  </aside>
+</section>
+
+<!-- ============================== PART 1 ============================== -->
+
+<section class="slide divider">
+  <span class="num">1</span>
+  <h1>Telling stories inside a scan</h1>
+  <aside class="notes">
+    <p>Part 1. For now, assume the 3D scan exists. We come back to how it is made in Part 2.</p>
+  </aside>
+</section>
+
+<section class="slide statement">
+  <h2>Places disappear. Stories disappear faster.</h2>
+  <p>Demolition, redevelopment and closure have always outpaced documentation. The knowledge of a place lives in people, and leaves when they do.</p>
+  <aside class="notes">
+    <p>The texture of a building, the way light enters a room, who lived there and what happened — institutional archives rarely capture this. It exists in people, not in systems.</p>
+    <p>What is new: the tools to document a place are now in everyone's pocket.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">The gap</p>
+  <h2>Capture and story live in different places</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Capture tools</h3>
+      <p>Turn a phone into a scanner in minutes. They treat the scan as <em>the deliverable</em>: the output is a model, and the story, if there is one, lives somewhere else.</p>
+    </div>
+    <div class="card">
+      <h3>Community heritage work</h3>
+      <p>Rich in narrative, thin on spatial capture. Recording stories, but not places. When the building comes down, the story loses its anchor.</p>
+    </div>
+  </div>
+  <blockquote>The gap is not in the technology. It is in the workflow.</blockquote>
+  <aside class="notes">
+    <p>This is not a criticism of capture tools — capture is a hard problem and they have largely solved it. The engine starts where they stop.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">The idea</p>
+  <h2>The scan is a common ground for everyone's story</h2>
+  <div class="split">
+    <svg class="drawn" viewBox="0 0 640 340" role="img" aria-labelledby="sg-t">
+      <title id="sg-t">Three accounts — an architect's, a resident's and a journalist's — each drawing on one shared scan.</title>
+      <defs>
+        <marker id="sg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" style="fill: var(--line)"/>
+        </marker>
+      </defs>
+      <rect x="400" y="110" width="210" height="120" rx="10" style="fill: var(--accentfill); stroke: var(--accent); stroke-width: 2"/>
+      <text x="505" y="165" text-anchor="middle" style="font-size: 22px; font-weight: 600; fill: var(--accent)">One scan</text>
+      <text x="505" y="192" text-anchor="middle" style="font-size: 15px; fill: var(--muted)">captured once</text>
+      <g style="fill: var(--fill); stroke: var(--line); stroke-width: 1.5">
+        <rect x="30" y="30" width="200" height="64" rx="8"/>
+        <rect x="30" y="138" width="200" height="64" rx="8"/>
+        <rect x="30" y="246" width="200" height="64" rx="8"/>
+      </g>
+      <g style="font-size: 18px" text-anchor="middle">
+        <text x="130" y="68">The architect's story</text>
+        <text x="130" y="176">The resident's story</text>
+        <text x="130" y="284">The journalist's story</text>
+      </g>
+      <g style="stroke: var(--line); stroke-width: 1.75; fill: none" marker-end="url(#sg-arrow)">
+        <path d="M232,62 C320,62 330,140 396,150"/>
+        <path d="M232,170 L396,170"/>
+        <path d="M232,278 C320,278 330,200 396,190"/>
+      </g>
+    </svg>
+    <div style="display: grid; gap: 1em">
+      <p>Scanning a place is now easy: anyone with a phone can do it in minutes.</p>
+      <p>What matters is what the scan becomes. Treated as <strong>common ground</strong>, one capture of a place can hold many accounts of it, without any one overwriting the others.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This is the idea the whole engine is built around. A building holds different truths for different people.</p>
+    <p>Be honest about the current state if asked: today each exported story carries its own copy of the scan. Sharing one scan across many authors is a platform-level feature, not yet built.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Who it is for</p>
+  <h2>Anyone with a story about a place, and nowhere to put it</h2>
+  <div class="cols">
+    <ul>
+      <li>Community documentarians and local history groups</li>
+      <li>Oral historians</li>
+      <li>Journalists reporting on a site</li>
+      <li>Architects and conservators</li>
+      <li>Residents</li>
+    </ul>
+    <ul>
+      <li>Curators and exhibition makers</li>
+      <li>Artists and filmmakers</li>
+      <li>Independent shops, studios and workshops</li>
+      <li>Anyone exploring Gaussian splatting who wants more than a spinning turntable</li>
+    </ul>
+  </div>
+  <p class="muted">None of them should need a developer.</p>
+  <aside class="notes">
+    <p>The engine grew out of community heritage work, but "a story anchored to a place" is a much wider shape. Commercial use is explicitly fine — the engine is MIT licensed.</p>
+    <p>Ask the room which of these they are. It tells you which examples to lean on for the rest of the session.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Two ways to tell it</p>
+  <h2>One story file, two views, switchable live</h2>
+  <svg class="drawn" viewBox="0 0 1200 430" role="img" aria-labelledby="tv-t">
+    <title id="tv-t">Page view: a scrolling article with the scan as one element in it. Immersive view: the scan fills the screen, the camera moves between waypoints, and each section appears as an overlay.</title>
+    <defs>
+      <marker id="tv-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" style="fill: var(--accent)"/>
+      </marker>
+    </defs>
+    <!-- Page view -->
+    <text x="20" y="28" style="font-size: 22px; font-weight: 600">Page view</text>
+    <text x="20" y="54" style="font-size: 16px; fill: var(--muted)">narrative around the scan</text>
+    <rect x="20" y="74" width="540" height="340" rx="10" style="fill: var(--fill); stroke: var(--line); stroke-width: 1.5"/>
+    <g style="fill: var(--line); opacity: 0.55">
+      <rect x="120" y="100" width="340" height="12" rx="4"/>
+      <rect x="120" y="122" width="320" height="10" rx="4"/>
+      <rect x="120" y="140" width="330" height="10" rx="4"/>
+      <rect x="120" y="158" width="250" height="10" rx="4"/>
+      <rect x="120" y="340" width="330" height="10" rx="4"/>
+      <rect x="120" y="358" width="310" height="10" rx="4"/>
+      <rect x="120" y="376" width="200" height="10" rx="4"/>
+    </g>
+    <rect x="120" y="184" width="340" height="140" rx="6" style="fill: var(--accentfill); stroke: var(--accent); stroke-width: 2"/>
+    <text x="290" y="260" text-anchor="middle" style="font-size: 18px; fill: var(--accent)">the 3D scan, inline</text>
+    <path d="M510,110 L510,390" style="stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5"/>
+    <text x="528" y="255" style="font-size: 14px; fill: var(--muted)" transform="rotate(90 528 255)" text-anchor="middle">scroll</text>
+    <!-- Immersive view -->
+    <text x="640" y="28" style="font-size: 22px; font-weight: 600">Immersive view</text>
+    <text x="640" y="54" style="font-size: 16px; fill: var(--muted)">narrative inside the scan</text>
+    <rect x="640" y="74" width="540" height="340" rx="10" style="fill: var(--accentfill); stroke: var(--accent); stroke-width: 2"/>
+    <rect x="664" y="98" width="190" height="130" rx="8" style="fill: var(--bg); stroke: var(--line); stroke-width: 1.5"/>
+    <text x="680" y="126" style="font-size: 15px; font-weight: 600">Section 2</text>
+    <g style="fill: var(--line); opacity: 0.55">
+      <rect x="680" y="140" width="150" height="8" rx="3"/>
+      <rect x="680" y="156" width="140" height="8" rx="3"/>
+      <rect x="680" y="172" width="120" height="8" rx="3"/>
+    </g>
+    <g style="fill: var(--accent)">
+      <circle cx="740" cy="350" r="9"/>
+      <circle cx="930" cy="300" r="9"/>
+      <circle cx="1100" cy="200" r="9"/>
+    </g>
+    <g style="font-size: 14px; fill: var(--accent)">
+      <text x="740" y="384" text-anchor="middle">waypoint 1</text>
+      <text x="930" y="334" text-anchor="middle">waypoint 2</text>
+      <text x="1100" y="234" text-anchor="middle">waypoint 3</text>
+    </g>
+    <path d="M752,345 C820,320 860,310 918,303" style="stroke: var(--accent); stroke-width: 2; fill: none; stroke-dasharray: 6 5" marker-end="url(#tv-arrow)"/>
+    <path d="M942,295 C1010,270 1050,240 1088,208" style="stroke: var(--accent); stroke-width: 2; fill: none; stroke-dasharray: 6 5" marker-end="url(#tv-arrow)"/>
+    <text x="910" y="400" text-anchor="middle" style="font-size: 14px; fill: var(--muted)">advancing the story flies the camera to each waypoint</text>
+  </svg>
+  <aside class="notes">
+    <p>Both views read the same story file. A toggle switches between them with no reload. Most tools make you choose one; an author usually does not know which they want until they have tried both with their own material.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Two ways to tell it</p>
+  <h2>Which view suits which story</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>Page view</h3>
+      <p>The narrative controls the pacing. The reader reads and listens, and steps into the scan at the moments that call for it.</p>
+      <p class="muted">Long-form journalism. Stories spanning several places. Authors who write first and scan second. Readers who would rather read than navigate.</p>
+    </div>
+    <div class="card">
+      <h3>Immersive view</h3>
+      <p>The scan is the stage. The reader moves through the place, and the story meets them at each spot.</p>
+      <p class="muted">Place-led stories. Interiors and architectural detail. Oral accounts tied to particular spots. Museum-style presentation.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>You do not have to choose when authoring — the same story works in both. The choice is about which one you lead readers into.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Anatomy of a story</p>
+  <h2>Sections and waypoints</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>Sections</h3>
+      <p>Each section is one beat of the story: <strong>text</strong>, an <strong>image</strong>, <strong>audio</strong> or <strong>video</strong>. Add as many as the story needs, in order.</p>
+    </div>
+    <div class="card">
+      <h3>Waypoints</h3>
+      <p>A saved camera view in the scan. Frame the scene, add a waypoint, then point a section at it. This is what makes the story spatial.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>In the immersive view, the camera flies to each section's waypoint when that section becomes active. In the page view, the same waypoints frame the inline scan.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Anatomy of a story</p>
+  <h2>Behind it: plain files</h2>
+  <div class="split even">
+<pre><span class="c">my-story/</span>
+├─ story.md
+└─ assets/
+   ├─ scan.sog
+   ├─ before-1970.jpg
+   └─ interview.mp3
+
+<span class="c"># story.md</span>
+<span class="k">---</span>
+title: "The composing room"
+model: assets/scan.sog
+<span class="k">---</span>
+<span class="k">##</span> [item-01] Where the presses stood
+…</pre>
+    <div style="display: grid; gap: 1em">
+      <p>A story is one Markdown file and a folder of media. No database, nothing proprietary.</p>
+      <p>You never have to touch this file — the editor writes it. But it means you can read it, copy it, zip it, archive it, and open it in twenty years without this software.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>This slide is for reassurance, not instruction. Most participants will only ever use the editor. The point is that their work is theirs.</p>
+    <p>The full format reference is in the engine's AUTHORING.md, if anyone asks.</p>
+  </aside>
+</section>
+
+<!-- ---------- Editorial craft ---------- -->
+
+<section class="slide statement">
+  <p class="kicker">Editorial craft</p>
+  <h2>A scan is not yet a story</h2>
+  <p>Given only a space, a reader will look around it and leave. The scan records what a place looks like. It does not say what happened there, who it mattered to, or what changed.</p>
+  <aside class="notes">
+    <p>This is the turn from tool to craft. The next few slides are about the decisions an author makes, not the buttons they press.</p>
+    <p>TODO: expand once guide 05 is written. Until then, keep to what is on the slides.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Editorial craft</p>
+  <h2>What the scan gives you that nothing else can</h2>
+  <p class="lede">People have spatial memory. We recall memories when we return to a place — so the cues that bring them back are spatial too.</p>
+  <div class="cards three">
+    <div class="card"><h3>Extent</h3><p>How far. How big. How enclosed. The size of a room is part of how it is remembered.</p></div>
+    <div class="card"><h3>Adjacency</h3><p>What is next to what, and what you pass on the way. Memories are linked by where things were.</p></div>
+    <div class="card"><h3>Position</h3><p>Where the reader is standing when they are told something. Standing in the spot puts them in the memory.</p></div>
+  </div>
+  <p class="muted">Use the scan for these. Use other media for everything else.</p>
+  <aside class="notes">
+    <p>Start from experience: ask who has gone back to a childhood home, a school or an old workplace, and found memories returning that they had not thought about in years. That is spatial memory, and the scan lets a reader revisit a place in the same way.</p>
+    <p>A photograph can show a room; only the scan can show that the kitchen was three steps from the shop counter. Ask the room for an example from their own place.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Editorial craft</p>
+  <h2>What each medium contributes</h2>
+  <div class="cards four">
+    <div class="card">
+      <h3>Text</h3>
+      <p>Names, dates, chronology, attribution — anything that has to be stated rather than shown.</p>
+      <p class="muted">The quickest to read, and the easiest to overdo.</p>
+    </div>
+    <div class="card">
+      <h3>Photographs</h3>
+      <p>Time depth: what stood here before, what was removed, what the scan cannot resolve.</p>
+      <p class="muted">The best medium for showing change.</p>
+    </div>
+    <div class="card">
+      <h3>Video</h3>
+      <p>Process and duration: craft, ritual, machinery, weather.</p>
+      <p class="muted">Anything that only exists as action.</p>
+    </div>
+    <div class="card">
+      <h3>Voice</h3>
+      <p>Testimony, and presence without a portrait.</p>
+      <p class="muted">Accent, hesitation and pace carry what no transcript keeps.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The question for each section is not "what do I have?" but "what does this moment need that the scan cannot give?"</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Editorial craft</p>
+  <h2>What a piece of media is attached to</h2>
+  <div class="cards four">
+    <div class="card"><h3>A point</h3><p>"It happened here."</p></div>
+    <div class="card"><h3>A surface</h3><p>"This wall, this floor, this sign."</p></div>
+    <div class="card"><h3>An object</h3><p>"This machine, this chair."</p></div>
+    <div class="card"><h3>A viewpoint</h3><p>"This is what they saw from here."</p></div>
+  </div>
+  <p class="muted">The same recording means something different depending on where the camera puts the reader when it plays.</p>
+  <aside class="notes">
+    <p>In the engine, each of these is expressed through how you frame the waypoint: close on an object, square to a wall, or at a person's eye height looking out.</p>
+    <p>TODO: expand once guide 05 is written.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Editorial craft</p>
+  <h2>Route, pace and restraint</h2>
+  <div class="cards three">
+    <div class="card">
+      <h3>Route or freedom</h3>
+      <p>An authored route aids understanding. Open exploration aids discovery. Too much of either loses the reader, or railroads them.</p>
+    </div>
+    <div class="card">
+      <h3>Density</h3>
+      <p>Decide where to attach nothing. Empty space is pacing, not an unfinished section.</p>
+    </div>
+    <div class="card">
+      <h3>Setting or subject</h3>
+      <p>Is the place the thing being described, or the room a different story is told in? These call for different treatments.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The engine's immersive view gives readers both: they advance through the sections in order, and can also look around and walk with WASD between them.</p>
+    <p>TODO: expand once guide 05 is written.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Editorial craft</p>
+  <h2>Honesty</h2>
+  <div class="cards three">
+    <div class="card">
+      <h3>Gaps</h3>
+      <p>What was not scanned, could not be photographed, or no one is left to tell. Mark absence; do not paper over it.</p>
+    </div>
+    <div class="card">
+      <h3>Sources</h3>
+      <p>A scan reads as evidence. Attribute and date every piece of media, and say where you are uncertain.</p>
+    </div>
+    <div class="card">
+      <h3>Access</h3>
+      <p>Transcripts and captions. A reader who cannot or will not navigate 3D still needs the story — the page view is that route.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>A reconstruction that looks plausible is not the same as one that is accurate. Readers will trust what they see; that puts the burden on the author.</p>
+    <p>TODO: expand once guide 05 is written.</p>
+  </aside>
+</section>
+
+<!-- ---------- Building one ---------- -->
+
+<section class="slide">
+  <p class="kicker">Live demo</p>
+  <h2>Building a story in the editor</h2>
+  <ol class="steps">
+    <li><span><strong>Upload</strong> the scan — a splat (<code>.sog</code>, <code>.ply</code>, <code>.spz</code>…) or a <code>.glb</code> mesh.</span></li>
+    <li><span><strong>Fill in the details</strong> — title, author, location, date.</span></li>
+    <li><span><strong>Add sections</strong> — text, image, audio, video — uploading media as you go.</span></li>
+    <li><span><strong>Add waypoints</strong> — frame the scene, save the view, point a section at it.</span></li>
+    <li><span><strong>Preview</strong> both views, then <strong>Save to gallery</strong>.</span></li>
+  </ol>
+  <aside class="notes">
+    <p>Do this live in the hosted editor, with a scan you have prepared. Three sections is enough to show the whole loop: one text, one image, one audio.</p>
+    <p>Warn people now: the editor keeps stories for this browser session only. The exported zip is the saved copy. Export before closing the tab.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Exercise</p>
+  <h2>Write a short story inside a scan</h2>
+  <div class="cols">
+    <ol class="steps">
+      <li><span>Pick one of the scans provided.</span></li>
+      <li><span>Write three to five sections.</span></li>
+      <li><span>Give every section a waypoint.</span></li>
+      <li><span>Preview it in both views.</span></li>
+      <li><span>Save, and export.</span></li>
+    </ol>
+    <div class="card">
+      <h3>Ask yourself</h3>
+      <ul>
+        <li>Where does the reader begin?</li>
+        <li>Which section needs the scan, and which needs another medium?</li>
+        <li>Where should nothing be attached?</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Needs: the hosted editor URL on the board, and two or three ready-made SOG scans available to download. Allow 20–30 minutes, then ask two or three people to show theirs in the immersive view.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Publishing</p>
+  <h2>From gallery to website</h2>
+  <div class="split">
+    <figure class="shot">
+      <img src="images/engine-gallery.png" alt="The engine's gallery page, listing saved stories with checkboxes and an Export selected button.">
+    </figure>
+    <div style="display: grid; gap: 1em">
+      <p>Tick the stories you want and <strong>Export</strong>. You get a zip containing a complete website.</p>
+      <p><strong>One story</strong> selected: the site opens straight into it.</p>
+      <p><strong>Several</strong>: the site opens on a gallery, and readers choose.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Export works from the hosted editor, not from a development server. Media typed in by path rather than uploaded in the editor is not included — upload everything through the editor.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Publishing</p>
+  <h2>Putting it online</h2>
+  <div class="cards three">
+    <div class="card">
+      <h3>Any static host</h3>
+      <p>The export runs anywhere that serves files. No backend, no build step, no server setup.</p>
+    </div>
+    <div class="card">
+      <h3>Drag and drop</h3>
+      <p>The easiest route: unzip, and drag the site folder onto Netlify. It is live in under a minute.</p>
+    </div>
+    <div class="card">
+      <h3>Collections</h3>
+      <p>Several stories about one place? A collection page becomes the site's front door, before readers pick a story.</p>
+    </div>
+  </div>
+  <p class="muted">Need to change something later? Import the exported zip back into the editor and carry on.</p>
+  <aside class="notes">
+    <p>Vercel, Cloudflare Pages, GitHub Pages and a folder on an existing website all work too. Step-by-step instructions are in the engine's PUBLISHING.md, and a short copy ships inside every export as DEPLOY.md.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Ownership</p>
+  <h2>Your story stays yours</h2>
+  <div class="cols">
+    <div style="display: grid; gap: 1em">
+      <p>A story is plain files you hold. No account, no upload to anyone. If the engine stopped tomorrow, every exported story would keep working.</p>
+    </div>
+    <div class="card">
+      <h3>Consent comes first</h3>
+      <p>Voice and video carry obligations that text and photographs of a building usually do not. Settle what may be published, and where, <em>before</em> you record — not after.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Story collection and interviewing, including consent, is covered in guide 04.</p>
+    <p>TODO: expand the consent points once guide 04 is written.</p>
+  </aside>
+</section>
+
+<section class="slide slot" data-slot="c">
+  <p class="kicker">Demo</p>
+  <h2>The whole path, live</h2>
+  <p>A story that went all the way: captured, authored, published.</p>
+  <span class="cue">Switch to browser</span>
+  <aside class="notes">
+    <p><strong>Demo slot C.</strong> Show a fully deployed story, start to finish. This closes Part 1 by proving the whole loop works.</p>
+    <p>A good choice for this slot:</p>
+    <ul>
+      <li>is live on a public URL, so the audience can open it on their phones</li>
+      <li>uses several media types and several waypoints</li>
+      <li>has its source folder to hand, so you can show the <code>story.md</code> beside the live site</li>
+    </ul>
+  </aside>
+</section>
+
+<!-- ============================== PART 2 ============================== -->
+
+<section class="slide divider">
+  <span class="num">2</span>
+  <h1>Making the 3D, easily</h1>
+  <aside class="notes">
+    <p>Part 2. Everything so far assumed the scan existed. Now: how to make one, with nothing more than a phone.</p>
+  </aside>
+</section>
+
+<section class="slide slot" data-slot="b">
+  <p class="kicker">Demo</p>
+  <h2>What good capture looks like</h2>
+  <p>A scan that holds up when the reader moves in close.</p>
+  <span class="cue">Switch to browser</span>
+  <aside class="notes">
+    <p><strong>Demo slot B.</strong> Show a well-scanned space, and move the camera close to the details the story rests on. The point: capture quality decides what the story can show.</p>
+    <p>A good choice for this slot:</p>
+    <ul>
+      <li>holds up in close-up on at least one important detail</li>
+      <li>has few floaters or holes</li>
+      <li>if you have it, a weaker earlier scan of the same kind of place to compare against</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">The tool</p>
+  <h2>You already have a scanner</h2>
+  <div class="cols">
+    <div style="display: grid; gap: 1em">
+      <p><strong>Scaniverse</strong> on a recent phone. Free, on iOS and Android, no account needed.</p>
+      <p>Choose <strong>Splat</strong> mode. It processes on the phone in about a minute, and uploads nothing unless you ask it to.</p>
+    </div>
+    <div class="card">
+      <h3>Comfortable</h3>
+      <p>A single object, a monument, a room.</p>
+      <h3>Less so</h3>
+      <p>A whole building exterior, or a sequence of connected rooms, in one capture.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The app removes the technical steps. It does not remove the need to capture well — which is what the next few slides are about.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">The one rule</p>
+  <h2>Rotation is not movement. Take a few steps.</h2>
+  <div class="split">
+    <figure>
+      <div class="plate"><img src="../diagrams/diagram-01-rotation-vs-translation.png" alt="Left: a camera at one position sweeping across a statue. Right: three camera positions along a path, each seeing the same point from a different angle."></div>
+      <figcaption>Left: one position, the view swept across. Right: three positions along a path.</figcaption>
+    </figure>
+    <div style="display: grid; gap: 1em">
+      <p>The software finds the same feature in several frames and works out where the camera must have been. That needs the feature to shift between frames — and it only shifts when the camera moves.</p>
+      <p>Standing still and panning records a panorama, not a place.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>If you remember one thing from Part 2, it is this. Demonstrate it: hold the phone and turn on the spot, then walk sideways past the same object.</p>
+    <p>Detail: guide 01, "The principle everything else follows from".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Objects</p>
+  <h2>Circle it. Change height.</h2>
+  <div class="split">
+    <figure>
+      <div class="plate"><img src="../diagrams/diagram-02-orbit-heights.png" alt="Three orbits around a statue at low, eye and high level, the camera angled up, level and down."></div>
+      <figcaption>Three loops: low and angled up, eye level, high and angled down.</figcaption>
+    </figure>
+    <ul>
+      <li>Start with one slow loop, far enough back to keep the whole subject in frame. End where you began.</li>
+      <li>Then loop again high, angled down, and low, angled up — or spiral.</li>
+      <li>Slower than feels natural. Every surface you care about should be seen from at least three positions.</li>
+    </ul>
+  </div>
+  <aside class="notes">
+    <p>Pace: someone reading a label in a museum. About 30° of viewpoint change between one view and the next — a small step, not a stride.</p>
+    <p>Detail: guide 01, "The establishing orbit" and "Change your height".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Objects</p>
+  <h2>Get closer in steps</h2>
+  <div class="split">
+    <figure>
+      <div class="plate"><img src="../diagrams/diagram-03-wide-medium-detail.png" alt="A whole figure, a region of it, and a detail, with one feature recurring in each adjacent pair of frames."></div>
+      <figcaption>Whole, region, detail. A shared feature links each pair.</figcaption>
+    </figure>
+    <div style="display: grid; gap: 1em">
+      <blockquote>Hold your distance steady within a pass. Change it between passes.</blockquote>
+      <p>Jumping straight from the whole to a tight detail fails: nothing in the close frame connects it to anything else. Keep some context in frame even at the closest range.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Corners and subjects you cannot walk round: move along them, and curve around corners rather than stopping and restarting. Guide 01, "Corners, and subjects you cannot circle".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Rooms</p>
+  <h2>Walk one way. Look another.</h2>
+  <div class="split">
+    <figure>
+      <div class="plate"><img src="../diagrams/diagram-06-walking-vs-camera.png" alt="A camera walking left to right while aimed back across a room; the angle to a fixed point changes with every step."></div>
+      <figcaption>Walking along the wall while aiming back across the room.</figcaption>
+    </figure>
+    <div style="display: grid; gap: 1em">
+      <p>Inside a room you are inside the subject, so circling it is not an option. You can still create the movement the software needs.</p>
+      <p>Look diagonally across the room, not at the nearest wall, with something near, middle and far in shot.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Walking forwards while looking forwards gives very little: things ahead grow slowly and barely shift. Aiming 30–60° inward makes features sweep across the frame.</p>
+    <p>Detail: guide 02, "Walking direction and camera direction are separate".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Rooms</p>
+  <h2>Weave through it, don't just walk the edge</h2>
+  <div class="split">
+    <figure>
+      <div class="plate"><img src="../diagrams/diagram-07-room-path.png" alt="A room plan with a perimeter path, diagonals, a crossing, and a small arc around a table."></div>
+      <figcaption>Perimeter (solid), diagonals (dashed), a crossing (dash-dot), a small arc around the table (dotted).</figcaption>
+    </figure>
+    <ul>
+      <li>Around the edge, corner to corner, and straight across.</li>
+      <li>Small arcs around the objects that matter.</li>
+      <li>The same routes again looking up, then looking down — tilting <em>while walking</em>, never from one spot.</li>
+    </ul>
+  </div>
+  <aside class="notes">
+    <p>Three height bands: level for walls and furniture, angled up for the ceiling junction, angled down for the floor. They must overlap, so ceiling ties to wall ties to floor.</p>
+    <p>Detail: guide 02, "Do not just walk the perimeter", "Three vertical layers", "Ceilings and floors".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Rooms</p>
+  <h2>Join the spaces together</h2>
+  <div class="cols">
+    <div style="display: grid; gap: 1em">
+      <p>An excellent capture of one room and an excellent capture of the next can still have nothing describing where they are relative to each other.</p>
+      <p>Record a pass that <strong>travels between them</strong> — through the doorway, into the second room, and back — with features from both in shot.</p>
+    </div>
+    <div class="card">
+      <h3>Several short passes, not one long take</h3>
+      <p>Each pass has one job. If one is ruined by blur or someone walking through, redo that pass, not the session.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>The same treatment applies anywhere the space narrows or turns: corridors, arches, stairs.</p>
+    <p>Detail: guide 02, "Connection passes" and "Several recordings, not one long take".</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Back to the story</p>
+  <h2>Scan for the story you will tell</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>Holds the space together</h3>
+      <p>Walls, floor, ceiling, corners, doors, large furniture. Needs to be solid, not beautiful.</p>
+    </div>
+    <div class="card">
+      <h3>Carries the story</h3>
+      <p>The photograph, the machine, the sign, the chair. Readers will move in close, so it needs real detail.</p>
+    </div>
+  </div>
+  <p class="muted">Capture the room well enough to be stable, then spend your remaining time on what the story rests on.</p>
+  <aside class="notes">
+    <p>This is where Part 1 and Part 2 meet. Deciding which is which before you start recording is most of the value — and it is the same decision as planning your waypoints.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Into the engine</p>
+  <h2>From phone to story</h2>
+  <ol class="steps">
+    <li><span><strong>Export</strong> from Scaniverse as PLY.</span></li>
+    <li><span><strong>Clean</strong> it in SuperSplat, in the browser: delete stray splats, crop to what you want.</span></li>
+    <li><span><strong>Save as SOG</strong> — 10–20× smaller than the PLY.</span></li>
+    <li><span><strong>Upload</strong> the SOG in the editor.</span></li>
+  </ol>
+  <div class="cards two">
+    <div class="card"><h3>Size</h3><p>Aim for under 15 MB per scan; 40 MB at most.</p></div>
+    <div class="card"><h3>Upside down?</h3><p>Set <strong>Model orientation</strong> to <strong>Flip upright</strong> in the story details.</p></div>
+  </div>
+  <aside class="notes">
+    <p>Clean before compressing, never after: compression is lossy, and there is no point spending bytes on splats you are about to delete. Edit in PLY; deliver in SOG.</p>
+    <p>Detail: guide 03, "Cleanup" and "Formats"; the engine's GAUSSIAN-SPLATS.md for size and orientation.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">When to go further</p>
+  <h2>Desktop processing, when the phone is not enough</h2>
+  <div class="split">
+    <figure>
+      <div class="drawn-img"><img src="../diagrams/diagram-10-processing-routes.svg" alt="The three processing routes: phone, desktop paid, and desktop open source, all ending in SuperSplat cleanup and SOG."></div>
+    </figure>
+    <ul>
+      <li>For large or connected spaces, record video and train on a desktop.</li>
+      <li>Postshot: shortest desktop path; exporting needs a paid licence.</li>
+      <li>Open source route: free, more steps, full control.</li>
+      <li>Both need an NVIDIA GPU with 8 GB of VRAM or more.</li>
+    </ul>
+  </div>
+  <aside class="notes">
+    <p>Do not teach this route in the session unless the audience asks. Point to guide 03 for the full walkthrough, including the resolution advice: shoot 4K, downscale to about 1600px wide before processing.</p>
+  </aside>
+</section>
+
+<section class="slide">
+  <p class="kicker">Optional exercise</p>
+  <h2>Scan something, and put it in your story</h2>
+  <div class="cols">
+    <ol class="steps">
+      <li><span>Pick a small object or a corner of the room.</span></li>
+      <li><span>Scan it in Scaniverse: loop, change height, get closer in steps.</span></li>
+      <li><span>Export, clean, save as SOG.</span></li>
+      <li><span>Replace the scan in the story you wrote earlier.</span></li>
+    </ol>
+    <div class="card">
+      <h3>Before you stop recording</h3>
+      <ul>
+        <li>Has every important surface been seen from three positions?</li>
+        <li>Did the first loop close?</li>
+        <li>Did you stand still and pan anywhere?</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Allow 20–30 minutes if time permits. The last checklist question is the most important: panning from one spot is the most common way a capture fails, and it always feels productive at the time.</p>
+  </aside>
+</section>
+
+<!-- ============================== CLOSE ============================== -->
+
+<section class="slide">
+  <p class="kicker">In short</p>
+  <h2>What to take away</h2>
+  <div class="cards two">
+    <div class="card">
+      <h3>The story</h3>
+      <ul>
+        <li>The scan is a common ground for everyone's story.</li>
+        <li>Use the scan for extent, adjacency and position. Use other media for the rest.</li>
+        <li>Your story is plain files you own.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The scan</h3>
+      <ul>
+        <li>Move, don't pan.</li>
+        <li>Circle it, change height, get closer in steps.</li>
+        <li>In rooms, weave through and join the spaces.</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ask for one thing each person will try first.</p>
+  </aside>
+</section>
+
+<section class="slide statement">
+  <p class="kicker">Where next</p>
+  <h2>The Spatial Storytelling Guide, and the Spatial Storytelling Engine</h2>
+  <p>The guide covers scanning, processing and storytelling in depth. The engine is where stories are built and published. Both are free.</p>
+  <p class="muted" style="font-size: 1.5cqw">This deck is part of the Spatial Storytelling Guide by Into Storymode, licensed CC BY 4.0. Engine interface screenshot from the Spatial Storytelling Engine, MIT licence.</p>
+  <aside class="notes">
+    <p>Put the links to both repositories on the board or in the follow-up email rather than in the deck. Thank the room; take questions.</p>
+  </aside>
+</section>
+
+</main>
+
+<div id="notes" hidden></div>
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const notes = document.getElementById('notes');
+  let current = 0;
+
+  slides.forEach((slide, i) => {
+    const foot = document.createElement('div');
+    foot.className = 'foot';
+    foot.innerHTML = '<span>Spatial Storytelling Workshop</span><span>' + (i + 1) + ' / ' + slides.length + '</span>';
+    slide.appendChild(foot);
+  });
+
+  function show(n) {
+    current = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((slide, i) => { slide.hidden = i !== current; });
+    const aside = slides[current].querySelector('.notes');
+    notes.innerHTML = '<div class="label">Notes · ' + (current + 1) + ' / ' + slides.length + '</div>' +
+      (aside ? aside.innerHTML : '<p>No notes for this slide.</p>');
+    if (location.hash !== '#' + (current + 1)) history.replaceState(null, '', '#' + (current + 1));
+  }
+
+  function fromHash() {
+    const n = parseInt(location.hash.slice(1), 10);
+    show(Number.isFinite(n) ? n - 1 : 0);
+  }
+
+  const themes = ['system', 'light', 'dark'];
+  function setTheme(name) {
+    if (name === 'system') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', name);
+    try { localStorage.setItem('deck-theme', name); } catch (e) {}
+  }
+  try { const saved = localStorage.getItem('deck-theme'); if (themes.includes(saved)) setTheme(saved); } catch (e) {}
+
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': show(current + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': show(current - 1); break;
+      case 'Home': show(0); break;
+      case 'End': show(slides.length - 1); break;
+      case 'n': case 'N': notes.hidden = !notes.hidden; break;
+      case 't': case 'T': {
+        const now = document.documentElement.getAttribute('data-theme') || 'system';
+        setTheme(themes[(themes.indexOf(now) + 1) % themes.length]);
+        break;
+      }
+      case 'f': case 'F':
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen().catch(() => {});
+        break;
+      default: return;
+    }
+    e.preventDefault();
+  });
+
+  // Click or tap at the edge of the slide: right edge advances, left edge goes back.
+  // Clicks anywhere else do nothing, so pointing at or selecting content is safe.
+  document.getElementById('deck').addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const rect = slides[current].getBoundingClientRect();
+    const edge = rect.width * 0.1;
+    if (e.clientX < rect.left + edge) show(current - 1);
+    else if (e.clientX > rect.right - edge) show(current + 1);
+  });
+
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>

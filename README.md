@@ -20,7 +20,7 @@ Engine-specific handling of splats â€” supported formats, import, orientation â€
 
 ## Workshop materials
 
-[`workshop-materials/`](workshop-materials/) holds a slide deck and a companion script for anyone running this as a session. It is supplementary; the guides do not depend on it.
+[`workshop-materials/`](workshop-materials/) holds a slide deck, with its script as speaker notes, for anyone running this as a session. It is supplementary; the guides do not depend on it.
 
 ## License
 
